@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 private const val TAG = "TodoViewModel"
@@ -22,8 +24,12 @@ class TodoViewModel : ViewModel() {
     }
 
     fun getTodoItems() {
-        viewModelScope.launch {
+        viewModelScope.launch(/*Dispatchers.Main*/) {
             try {
+                withContext(Dispatchers.IO) {
+                    Log.i(TAG, "getTodoItems on scope: ${viewModelScope} and Dispatchers.IO}")
+                    val response = TodoApi.retrofitService.getTodos()
+                }
                 Log.i(TAG, "getTodoItems: launch started")
                 _todoResponse.value = TodoApi.retrofitService.getTodos().toString()
             } catch (e: Exception) {
@@ -33,11 +39,13 @@ class TodoViewModel : ViewModel() {
     }
 
     fun deleteTodoItem(todoId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             try {
-                TodoApi.retrofitService.deleteItem(todoId)
-                Log.i(TAG, "deleteTodoItem: ${todoId} deleted")
-                _todoResponse.value = "deleteTodoItem: ${todoId} deleted"
+                withContext(Dispatchers.IO) {
+                    TodoApi.retrofitService.deleteItem(todoId)
+                }
+                Log.i(TAG, "deleteTodoItem: $todoId deleted")
+                _todoResponse.value = "deleteTodoItem: $todoId deleted"
             } catch (e: Exception) {
                 _todoResponse.value = e.message.toString()
             }
@@ -45,11 +53,13 @@ class TodoViewModel : ViewModel() {
     }
 
     fun postTodoItem(todoItem: TodoItem) {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             try {
-                TodoApi.retrofitService.postItem(todoItem)
-                Log.i(TAG, "postTodoItem: ${todoItem} posted")
-                _todoResponse.value = "postTodoItem: ${todoItem} posted"
+                withContext(Dispatchers.IO) {
+                    TodoApi.retrofitService.postItem(todoItem)
+                }
+                Log.i(TAG, "postTodoItem: $todoItem posted")
+                _todoResponse.value = "postTodoItem: $todoItem posted"
             } catch (e: Exception) {
                 _todoResponse.value = e.message.toString()
             }
