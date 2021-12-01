@@ -17,8 +17,8 @@ private val moshi = Moshi.Builder()
 
 private val retrofit = Retrofit.Builder()
     // A converter for strings and both primitives and their boxed types to text/plain bodies.
-    .addConverterFactory(ScalarsConverterFactory.create())
-//    .addConverterFactory(MoshiConverterFactory.create(moshi))
+//    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
@@ -26,7 +26,7 @@ private val retrofit = Retrofit.Builder()
 // we create 'suspend' fun, so we can call the function from a coroutine scope
 interface TodoApiService {
     @GET("todos")
-    suspend fun getTodos(): String //With Mosh we can convert to: List<TodoItem>
+    suspend fun getTodos(): List<TodoItem>
 
     @DELETE("todos/{id}")
     suspend fun deleteItem(@Path("id") todoId: Int)

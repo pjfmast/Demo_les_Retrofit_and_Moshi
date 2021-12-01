@@ -25,7 +25,7 @@ class TodoViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 Log.i(TAG, "getTodoItems: launch started")
-                _todoResponse.value = TodoApi.retrofitService.getTodos()
+                _todoResponse.value = TodoApi.retrofitService.getTodos().toString()
             } catch (e: Exception) {
                 _todoResponse.value = e.message.toString()
             }
