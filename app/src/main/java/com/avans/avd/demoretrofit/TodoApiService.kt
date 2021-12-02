@@ -8,8 +8,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
 
 private const val BASE_URL =
-//    "https:https//jsonplaceholder.typicode.com/"
-    "http://10.0.26.2:8080/"
+    "https:https//jsonplaceholder.typicode.com/"
+//    "http://10.0.26.2:8080/"
 
 // For parsing the json result: add a Moshi builder
 private val moshi = Moshi.Builder()
