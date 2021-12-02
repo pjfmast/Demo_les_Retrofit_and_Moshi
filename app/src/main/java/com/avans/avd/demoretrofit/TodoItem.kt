@@ -8,7 +8,7 @@ data class TodoItem(
     val userId: Int,
 
     @Json(name = "id")
-    val id: Int,
+    val id: Int? = null,
 
     @Json(name = "title")
     val title: String,

@@ -9,6 +9,7 @@ import retrofit2.http.*
 
 private const val BASE_URL =
     "https://jsonplaceholder.typicode.com/"
+//    "http://10.0.2.2:8080/"
 
 // For parsing the json result: add a Moshi builder
 private val moshi = Moshi.Builder()
