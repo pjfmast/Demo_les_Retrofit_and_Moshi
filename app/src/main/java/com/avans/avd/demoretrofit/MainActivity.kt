@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         // todo: introduce Moshi converter
         binding.post.setOnClickListener {
-            val todoItem = TodoItem(1,999,"Learn Moshi", false)
+            val todoItem = TodoItem(userId = 1, title = "Learn Moshi", completed = false)
             model.postTodoItem(todoItem)
         }
 
